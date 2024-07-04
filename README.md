@@ -9,7 +9,6 @@ Green Genie is an e-commerce website dedicated to selling eco-friendly products.
 - **User Authentication:** Includes a user login and registration system for secure access.
 - **Shopping Cart:** Enables users to add products to their cart and proceed to checkout.
 - **Search Functionality:** Users can search for products, with results displayed dynamically.
-- **PayPal Integration:** Facilitates secure payment transactions through PayPal.
 - **Database Integration:** Stores user information, product details, and purchase history securely using MySQLi database.
 
 ## Prerequisites
