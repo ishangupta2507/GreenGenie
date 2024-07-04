@@ -16,6 +16,16 @@ session_start();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="style.css">
+    <style>
+        .testimonial-section {
+            overflow-x: hidden;
+        }
+        .welcome-logout {
+            padding-left: 20px;
+            background-color: #6b8e23; /* Olive green */
+            color: #fff; /* White text color */
+        }
+    </style>
 </head>
 
 <body>
@@ -71,7 +81,7 @@ session_start();
             </div>
         </nav>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg welcome-logout">
             <ul class="navbar-nav me-auto">
                 <?php
                 if (!isset($_SESSION['username'])) {
@@ -135,7 +145,7 @@ session_start();
             </div>
         </div>
 
-        <div class="container testimonial-section">
+        <div class="container-fluid testimonial-section">
             <h2>What Our Customers Are Saying</h2>
             <div class="row">
                 <div class="col-md-4 testimonial">

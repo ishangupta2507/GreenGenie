@@ -27,7 +27,7 @@ function getproducts()
                                 <p class='card-description'> $product_description</p> 
                                 <p class='card-price'> Rs $product_price/-</p>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
-                                <a href='#' class='btn btn-primary'>View More</a>
+                                
                             </div>
                         </div>
                     </div> ";
@@ -59,7 +59,7 @@ function get_all_products()
                                 <p class='card-description'> $product_description</p> 
                                 <p class='card-price'> Rs $product_price/-</p>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
-                                <a href='#' class='btn btn-primary'>View More</a>
+                                
                             </div>
                         </div>
                     </div> ";
@@ -96,7 +96,7 @@ function get_unique_categories()
                                 <p class='card-description'> $product_description</p> 
                                 <p class='card-price'> Rs $product_price/-</p>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
-                                <a href='#' class='btn btn-primary'>View More</a>
+                                
                             </div>
                         </div>
                     </div> ";
@@ -132,7 +132,7 @@ function get_unique_brands()
                                 <p class='card-description'> $product_description</p> 
                                 <p class='card-price'> Rs $product_price/-</p>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
-                                <a href='#' class='btn btn-primary'>View More</a>
+                                
                             </div>
                         </div>
                     </div> ";
@@ -215,7 +215,7 @@ function search_products()
                                 <p class='card-description'> $product_description</p> 
                                 <p class='card-price'> Rs $product_price/-</p>
                                 <a href='index.php?add_to_cart=$product_id' class='btn btn-primary'>Add to Cart</a>
-                                <a href='#' class='btn btn-primary'>View More</a>
+                               
                             </div>
                         </div>
                     </div> ";

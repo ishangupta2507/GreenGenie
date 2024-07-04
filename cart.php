@@ -5,6 +5,7 @@ session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,6 +17,11 @@ session_start();
     <link rel="stylesheet" href="./style.css">
 
     <style>
+        .welcome-logout {
+            padding-left: 20px;
+            background-color: #6b8e23; /* Olive green */
+            color: #fff; /* White text color */
+        }
         .table img {
             width: 70px;
             height: 70px;
@@ -90,16 +96,16 @@ session_start();
             </div>
         </nav>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg welcome-logout">
             <ul class="navbar-nav me-auto">
-            <?php
+                <?php
                 if (!isset($_SESSION['username'])) {
                     echo " <li class='nav-item'>
                         <a class='nav-link' href='#'>Welcome Guest</a>
                     </li>";
                 } else {
                     echo " <li class='nav-item'>
-                        <a class='nav-link' href='#'>Welcom " . $_SESSION['username'] . "</a>
+                        <a class='nav-link' href='#'>Welcome " . $_SESSION['username'] . "</a>
                     </li>";
                 }
                 if (!isset($_SESSION['username'])) {
@@ -111,8 +117,6 @@ session_start();
                     <a class='nav-link' href='./users_area/logout.php'>Logout</a>
                 </li>";
                 }
-
-
                 ?>
             </ul>
         </nav>
@@ -151,27 +155,21 @@ session_start();
                                 $select_products = "SELECT * FROM `products` WHERE product_id='$product_id'";
                                 $result_product = mysqli_query($con, $select_products);
                                 while ($row_product_price = mysqli_fetch_array($result_product)) {
-                                    $product_price = array($row_product_price['product_price']);
-                                    $price_table = $row_product_price['product_price'];
+                                    $product_price = $row_product_price['product_price'];
                                     $product_title = $row_product_price['product_title'];
                                     $product_image = $row_product_price['product_image'];
-                                    $product_values = array_sum($product_price);
-                                    $total_price += $product_values;
+                                    $quantity = $row['quantity'];
+                                    if ($quantity == 0) {
+                                        $quantity = 1; // default to 1 if quantity is 0
+                                    }
+                                    $total_price += $product_price * $quantity;
                         ?>
                                     <tr>
                                         <td><?php echo $product_title ?></td>
                                         <td><img src="./admin_area/product_images/<?php echo $product_image ?>" alt=""></td>
-                                        <td><input type="text" name="qty" id="" class="form-input w-50"></td>
-                                        <?php
-                                        if (isset($_POST['update_cart'])) {
-                                            $quantities = $_POST['qty'];
-                                            $update_cart = "UPDATE `cart_details` SET quantity=$quantities WHERE ip_address='$ip'";
-                                            $result_product_qty = mysqli_query($con, $update_cart);
-                                            $total_price = $total_price * $quantities;
-                                        }
-                                        ?>
-                                        <td><?php echo $price_table ?>/-</td>
-                                        <td><input type="checkbox" name="removeitems[]" value="<?php echo $product_id; ?>" id=""></td>
+                                        <td><input type="text" name="qty[<?php echo $product_id; ?>]" value="<?php echo $quantity; ?>" class="form-input w-50"></td>
+                                        <td><?php echo $product_price * $quantity ?>/-</td>
+                                        <td><input type="checkbox" name="removeitems[]" value="<?php echo $product_id; ?>"></td>
                                         <td>
                                             <input type="submit" class="btn btn-outline-light cart-button px-3 py-1 mx-3" name="update_cart" value="Update Cart">
                                             <input type="submit" class="btn btn-outline-light cart-button px-3 py-1 mx-3" name="remove_cart" value="Remove Cart">
@@ -187,20 +185,13 @@ session_start();
                         </tbody>
                     </table>
                     <div class="d-flex mb-3">
-
                         <?php
-                        global $con;
-                        $ip = getIPAddress();
-                        $cart_query = "SELECT * FROM `cart_details` WHERE ip_address='$ip'";
-                        $result = mysqli_query($con, $cart_query);
                         if (mysqli_num_rows($result) > 0) {
                             echo "<h4 class='px-3'>Subtotal : <strong>$total_price /-</strong></h4>
-                        <input type='submit' class='btn btn-outline-light cart-button px-3 py-1 mx-3' name='continue_shopping' value='Continue Shopping'>
-
-                        
-                       <button class='btn btn-outline-light cart-button px-3 py-1 mx-3'><a  class='text-light text-decoration-none' href='./users_area/checkout.php'>Checkout</a></button>";
+                            <input type='submit' class='btn btn-outline-light cart-button px-3 py-1 mx-3' name='continue_shopping' value='Continue Shopping'>
+                            <button class='btn btn-outline-light cart-button px-3 py-1 mx-3'><a class='text-light text-decoration-none' href='./users_area/checkout.php'>Checkout</a></button>";
                         } else {
-                            echo " <input type='submit' class='btn btn-outline-light cart-button px-3 py-1 mx-3' name='continue_shopping' value='Continue Shopping'>";
+                            echo "<input type='submit' class='btn btn-outline-light cart-button px-3 py-1 mx-3' name='continue_shopping' value='Continue Shopping'>";
                         }
                         if (isset($_POST['continue_shopping'])) {
                             echo "<script>window.open('index.php','_self')</script>";
@@ -210,6 +201,24 @@ session_start();
                 </form>
             </div>
         </div>
+
+        <!--function to update cart quantities-->
+        <?php
+        function update_cart_quantities()
+        {
+            global $con;
+            if (isset($_POST['update_cart'])) {
+                foreach ($_POST['qty'] as $product_id => $quantity) {
+                    $product_id = (int)$product_id;
+                    $quantity = (int)$quantity;
+                    $update_query = "UPDATE `cart_details` SET quantity='$quantity' WHERE product_id=$product_id";
+                    $run_update = mysqli_query($con, $update_query);
+                }
+                echo "<script>window.open('cart.php','_self')</script>";
+            }
+        }
+        update_cart_quantities();
+        ?>
 
         <!--function to remove item-->
         <?php
@@ -227,7 +236,7 @@ session_start();
                 }
             }
         }
-        echo $remove_item = remove_cart_item();
+        remove_cart_item();
         ?>
 
         <?php

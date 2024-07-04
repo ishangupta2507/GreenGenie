@@ -20,6 +20,11 @@ session_start();
         .testimonial-section {
             overflow-x: hidden;
         }
+        .welcome-logout {
+            padding-left: 20px;
+            background-color: #6b8e23; /* Olive green */
+            color: #fff; /* White text color */
+        }
     </style>
 </head>
 
@@ -44,7 +49,7 @@ session_start();
                             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" href="#">My Account</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="profile.php">Pending Order</a></li>
-                                <li><a class="dropdown-item" href="profile.php?edit_account">Edit Acoount</a></li>
+                                <li><a class="dropdown-item" href="profile.php?edit_account">Edit Acount</a></li>
                                 <li><a class="dropdown-item" href="profile.php?my_orders">My Orders</a></li>
                                 <li><a class="dropdown-item" href="profile.php?delete_account">Delete Account</a></li>
                                 <li><a class="dropdown-item" href="logout.php">Logout</a></li>
@@ -69,7 +74,7 @@ session_start();
             </div>
         </nav>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg welcome-logout">
             <ul class="navbar-nav me-auto">
 
                 <?php

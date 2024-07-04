@@ -20,6 +20,12 @@ session_start();
         .testimonial-section {
             overflow-x: hidden;
         }
+
+        .welcome-logout {
+            padding-left: 20px;
+            background-color: #6b8e23; /* Olive green */
+            color: #fff; /* White text color */
+        }
     </style>
 </head>
 
@@ -76,7 +82,7 @@ session_start();
                         <li class="nav-item">
                             <a class="nav-link" href="cart.php"><i class="fa-solid fa-cart-shopping"><sup><?php cart_item(); ?></sup></i></a>
                         </li>
-                        
+
                     </ul>
                     <form class="d-flex" role="search" action="search_product.php" method="get">
                         <input class="form-control me-2" type="search" placeholder="Go Genie!" aria-label="Search" name="search_data">
@@ -86,7 +92,7 @@ session_start();
             </div>
         </nav>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg navbar-dark welcome-logout">
             <ul class="navbar-nav me-auto">
 
                 <?php

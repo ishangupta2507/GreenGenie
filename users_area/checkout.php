@@ -16,6 +16,11 @@ session_start();
 
     <link rel="stylesheet" href="../style.css">
     <style>
+        .welcome-logout {
+            padding-left: 20px;
+            background-color: #6b8e23; /* Olive green */
+            color: #fff; /* White text color */
+        }
         .form-control .navbar-search {
             box-shadow: none;
             outline: none;
@@ -64,7 +69,7 @@ session_start();
             </div>
         </nav>
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+        <nav class="navbar navbar-expand-lg welcome-logout">
             <ul class="navbar-nav me-auto">
                 <?php
                 if (!isset($_SESSION['username'])) {
